@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/gofiber/fiber/v2/middleware/requestid"
 	"github.com/google/uuid"
 )
 
@@ -36,6 +37,7 @@ func main() {
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("Hello world")
 	})
+	app.Use(requestid.New)
 	userGroup := app.Group("/user")
 	userGroup.Get("", handleUser)
 	userGroup.Post("", handleCreateUser)
